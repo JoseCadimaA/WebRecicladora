@@ -5,15 +5,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class FormCompra : System.Web.UI.Page
+public partial class FormVenta : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
-        {            
-            if (Session["FACTURA_ID_COM"] != null)
+        {
+            if (Session["FACTURA_ID_VEN"] != null)
             {
-                int facturaId = Convert.ToInt32(Session["FACTURA_ID_COM"].ToString());
+                int facturaId = Convert.ToInt32(Session["FACTURA_ID_VEN"].ToString());
                 if (facturaId > 0)
                 {
                     CargarFactura(facturaId);
@@ -28,7 +28,7 @@ public partial class FormCompra : System.Web.UI.Page
                 }
             }
         }
-        
+
     }
 
     private void CargarFactura(int facturaId)
@@ -58,13 +58,13 @@ public partial class FormCompra : System.Web.UI.Page
         {
             ClienteId = clienteId,
             UsuarioId = Convert.ToInt32(Session["CURRENT_USER"].ToString()),
-            Descripcion = DescripcionTextBox.Text.Trim(), 
-            EsVenta  = false
+            Descripcion = DescripcionTextBox.Text.Trim(),
+            EsVenta = true
         };
 
         try
         {
-            FacturaIdHD.Value = FacturaBLL.InsertFactura(obj).ToString();       
+            FacturaIdHD.Value = FacturaBLL.InsertFactura(obj).ToString();
         }
         catch (Exception q)
         {
@@ -76,12 +76,12 @@ public partial class FormCompra : System.Web.UI.Page
         PanelBtnGuardar.Visible = false;
         PanelBtnTerminar.Visible = true;
         PanelDetalle.Visible = true;
-        
+
     }
 
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
-        Response.Redirect("ListaCompras.aspx");
+        Response.Redirect("ListaVentas.aspx");
     }
 
     protected void ClienteList_DataBound(object sender, EventArgs e)
@@ -98,14 +98,14 @@ public partial class FormCompra : System.Web.UI.Page
 
     protected void btnTerminar_Click(object sender, EventArgs e)
     {
-        Session["FACTURA_ID_COM"] = null;
-        Response.Redirect("ListaCompras.aspx");
+        Session["FACTURA_ID_VEN"] = null;
+        Response.Redirect("ListaVentas.aspx");
     }
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
         FacturaBLL.DeleteFactura(Convert.ToInt32(FacturaIdHD.Value));
-        Response.Redirect("ListaCompras.aspx");
+        Response.Redirect("ListaVentas.aspx");
     }
 
     protected void btnGuardarDetalle_Click(object sender, EventArgs e)
@@ -132,7 +132,7 @@ public partial class FormCompra : System.Web.UI.Page
 
             if (detalleId <= 0)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "ShowMensaje('warning', 'La cantidad de KG ingresados rebasa la capacidad de almacén seleccionado.')", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "ShowMensaje('warning', 'La cantidad de KG ingresados no está disponible en el almacén.')", true);
                 return;
             }
         }
@@ -151,7 +151,7 @@ public partial class FormCompra : System.Web.UI.Page
     protected void ProductosList_SelectedIndexChanged(object sender, EventArgs e)
     {
         int productoId = Convert.ToInt32(ProductosList.SelectedValue);
-        if (productoId<= 0)
+        if (productoId <= 0)
         {
             PrecioTextBox.Text = "0";
             return;
@@ -159,7 +159,7 @@ public partial class FormCompra : System.Web.UI.Page
 
         Producto obj = ProductoBLL.GetProductoById(productoId);
 
-        PrecioTextBox.Text = obj.PrecioCompra.ToString();
+        PrecioTextBox.Text = obj.PrecioVenta.ToString();
         ProductoIdHD.Value = productoId.ToString();
         AlmacenList.DataBind();
     }
@@ -203,7 +203,7 @@ public partial class FormCompra : System.Web.UI.Page
         }
         if (detalleID <= 0)
             return;
-        
+
 
         if (e.CommandName == "Eliminar")
         {

@@ -9,12 +9,12 @@ public partial class ListaCompras : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Session["FACTURA_ID_COM"] = null;
     }
 
     protected void btnAddNuevo_Click(object sender, EventArgs e)
     {
-        Session["FACTURA_ID"] = null;
+        Session["FACTURA_ID_COM"] = null;
         Response.Redirect("FormCompra.aspx");
     }
 
@@ -49,7 +49,7 @@ public partial class ListaCompras : System.Web.UI.Page
         }
         if (e.CommandName == "Ver")
         {
-            Session["FACTURA_ID"] = facturaId.ToString();
+            Session["FACTURA_ID_COM"] = facturaId.ToString();
             Response.Redirect("FormCompra.aspx");
         }
     }

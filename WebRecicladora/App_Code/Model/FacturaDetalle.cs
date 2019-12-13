@@ -12,6 +12,7 @@ public class FacturaDetalle
     public int FacturaId { get; set; }
     public int ProductoId { get; set; }
     public string NombreProducto { get; set; }
+    public int AlmacenId { get; set; }
     public decimal PesoKG { get; set; }
     public decimal Monto { get; set; }
     public FacturaDetalle()

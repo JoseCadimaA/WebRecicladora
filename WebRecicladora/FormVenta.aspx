@@ -1,27 +1,27 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FormCompra.aspx.cs" Inherits="FormCompra" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FormVenta.aspx.cs" Inherits="FormVenta" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <h2 class="text-center">Registro de Compra</h2>
+    <h2 class="text-center">Registro de Venta</h2>
     <br />
 
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <asp:HyperLink runat="server" NavigateUrl="~/ListaCompras.aspx">Ver Listado de Compras</asp:HyperLink>
+            <asp:HyperLink runat="server" NavigateUrl="~/ListaVentas.aspx">Ver Listado de Ventas</asp:HyperLink>
             <br />
-            <div class="card card-secondary">
+            <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Formulario Compra</h3>
+                    <h3 class="card-title">Formulario Venta</h3>
                 </div>
                 <div role="form">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="ClienteList">Cliente</label>
                             <asp:DropDownList runat="server" OnDataBound="ClienteList_DataBound" CssClass="form-control" ID="ClienteList" DataSourceID="ClienteObjectDataSource" DataTextField="nombreCompleto" DataValueField="clienteId"></asp:DropDownList>
-                            <asp:ObjectDataSource runat="server" ID="ClienteObjectDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="GetListaClientesCompradores" TypeName="ClienteBLL"></asp:ObjectDataSource>
+                            <asp:ObjectDataSource runat="server" ID="ClienteObjectDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="GetListaClientesVendedores" TypeName="ClienteBLL"></asp:ObjectDataSource>
                         </div>
                         <div class="form-group">
                             <label for="DescripcionTextBox">Descripción</label>
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="form-group" runat="server" id="PanelDetalle" visible="false">
-                            <h4 class="text-center">Detalle de Compra</h4>
+                            <h4 class="text-center">Detalle de Venta</h4>
                             <asp:LinkButton runat="server" ID="btnAddProducto" OnClick="btnAddProducto_Click" Style="margin-right: 15px">Nueva Producto</asp:LinkButton>
                             <div class="table-responsive">
                                 <asp:GridView ID="GridProducto" runat="server"
@@ -71,16 +71,16 @@
 
                         <div class="row" id="PanelBtnGuardar" runat="server" visible="true">
                             <div class="col-md-6 form-group" runat="server">
-                                <asp:Button runat="server" ID="btnGuardar" Text="Insertar" OnClick="btnGuardar_Click" CssClass="btn btn-secondary btn-block" />
+                                <asp:Button runat="server" ID="btnGuardar" Text="Insertar" OnClick="btnGuardar_Click" CssClass="btn btn-success btn-block" />
                             </div>
                             <div class="col-md-6 form-group" runat="server">
-                                <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" OnClick="btnCancelar_Click" CssClass="btn btn-default btn-block" />
+                                <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" OnClick="btnCancelar_Click" CssClass="btn btn-secondary btn-block" />
                             </div>
                         </div>
                         <div class="row" id="PanelBtnTerminar" runat="server" visible="false">
                             <div class="col-md-12 form-group" runat="server">
-                                <asp:Button runat="server" ID="btnTerminar" Text="Terminar" OnClick="btnTerminar_Click" CssClass="btn btn-secondary btn-block" />
-                            </div>                            
+                                <asp:Button runat="server" ID="btnTerminar" Text="Terminar" OnClick="btnTerminar_Click" CssClass="btn btn-success btn-block" />
+                            </div>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
 
     <div class="modal fade" id="modalDetalle">
         <div class="modal-dialog">
-            <div class="modal-content bg-secondary">
+            <div class="modal-content bg-success">
                 <div class="modal-header">
                     <h4 class="modal-title">Detalle</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -143,8 +143,8 @@
     </div>
 
     <asp:HiddenField runat="server" ID="FacturaIdHD" />
-    <asp:HiddenField runat="server" ID="ShowModalHD" Value="false"/>
-    <asp:HiddenField runat="server" ID="ProductoIdHD" Value="0"/>
+    <asp:HiddenField runat="server" ID="ShowModalHD" Value="false" />
+    <asp:HiddenField runat="server" ID="ProductoIdHD" Value="0" />
     <!-- SweetAlert2 -->
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/jquery/jquery.min.js"></script>

@@ -27,11 +27,11 @@
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Anular">
+                        <asp:TemplateField HeaderText="Eliminar">
                             <ItemTemplate>
                                 <asp:LinkButton ID="DeleteButton" runat="server"
                                     CommandName="Eliminar"
-                                    OnClientClick="return confirm('Esta seguro que desea anular la factura?')"
+                                    OnClientClick="return confirm('Esta seguro que desea Eliminar la factura?')"
                                     CommandArgument='<%# Eval("FacturaId") %>'>
                                 <i class="fas fa-ban"></i>
                                 </asp:LinkButton>

@@ -17,7 +17,8 @@ public class FacturaDetalleBLL
             ProductoId = row.productoId,
             NombreProducto = row.nombreProducto,
             PesoKG = row.pesoKg,
-            Monto = row.monto
+            Monto = row.monto, 
+            AlmacenId = row.IsalmacenIdNull() ? 0 : row.almacenId
         };
 
         return theData;
@@ -70,7 +71,7 @@ public class FacturaDetalleBLL
         try
         {
             FacturaDetalleDSTableAdapters.FacturaDetalleTableAdapter localAdapter = new FacturaDetalleDSTableAdapters.FacturaDetalleTableAdapter();
-            localAdapter.InsertFacturaDetalle(theData.FacturaId, theData.ProductoId, theData.PesoKG, theData.Monto, ref detalleId);
+            localAdapter.InsertFacturaDetalle(theData.FacturaId, theData.ProductoId, theData.AlmacenId, theData.PesoKG, theData.Monto, ref detalleId);
         }
         catch (Exception)
         {
